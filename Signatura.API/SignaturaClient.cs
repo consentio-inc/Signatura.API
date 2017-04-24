@@ -11,7 +11,7 @@ namespace Signatura.API
 {
     public class SignaturaClient
     {
-        public static string SignaturaApiUrl = "http://localhost:8000/v1/";
+        public static string SignaturaApiUrl = "https://api.signatura.co/v1/";
         private IConnection _connection;
 
         public SignaturaClient(string token)
