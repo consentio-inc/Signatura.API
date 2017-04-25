@@ -38,7 +38,6 @@ namespace Signatura.API.Clients
         {
             // sign document content
 
-            Transaction tx = Transaction.Parse();
             var payload = Base64.Encode(privateKey.Sign(Base64.Decode(document.Hash)));
             var rawPayload = Base64.Encode(privateKey.Sign(Base64.Decode(document.RawHash)));
 
