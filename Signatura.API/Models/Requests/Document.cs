@@ -95,16 +95,19 @@ namespace Signatura.API.Models.Requests
 
                         var cipherText = msEncrypt.ToArray();
 
+                        var cbuf = new byte[iv.Length + cipherText.Length];
+                        Array.Copy(iv, cbuf, iv.Length);
+                        Array.Copy(cipherText, 0, cbuf, iv.Length, cipherText.Length);
+
                         byte[] mac;
                         using (var hmac = new HMACSHA256(_documentKey))
                         {
-                            mac = hmac.ComputeHash(cipherText);
+                            mac = hmac.ComputeHash(cbuf);
                         }
 
-                        var buf = new byte[iv.Length + cipherText.Length + mac.Length];
-                        Array.Copy(iv, buf, iv.Length);
-                        Array.Copy(cipherText, 0, buf, iv.Length, cipherText.Length);
-                        Array.Copy(mac, 0, buf, iv.Length + cipherText.Length, mac.Length);
+                        var buf = new byte[cbuf.Length + mac.Length];
+                        Array.Copy(cbuf, buf, cbuf.Length);
+                        Array.Copy(mac, 0, buf, cbuf.Length, mac.Length);
 
                         return buf;
                     }

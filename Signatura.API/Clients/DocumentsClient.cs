@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using NBitcoin;
 using Org.BouncyCastle.Utilities.Encoders;
 using RestSharp;
 using Signatura.API.Http;
@@ -36,6 +37,8 @@ namespace Signatura.API.Clients
         public async Task<Document> Sign(Document document, PrivateKey privateKey)
         {
             // sign document content
+
+            Transaction tx = Transaction.Parse();
             var payload = Base64.Encode(privateKey.Sign(Base64.Decode(document.Hash)));
             var rawPayload = Base64.Encode(privateKey.Sign(Base64.Decode(document.RawHash)));
 

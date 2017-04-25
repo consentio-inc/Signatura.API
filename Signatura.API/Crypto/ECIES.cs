@@ -89,7 +89,6 @@ namespace Signatura.API.Crypto
 
         private byte[] EncryptCipherText(byte[] message, byte[] key, byte[] iv)
         {
-            Console.WriteLine(Encoding.ASCII.GetString(message));
             using (var aes = new RijndaelManaged()
             {
                 KeySize = 256,

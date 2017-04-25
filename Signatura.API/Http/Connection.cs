@@ -37,8 +37,6 @@ namespace Signatura.API.Http {
 
             var response = await Client.ExecuteTaskAsync<T>(request);
 
-            Console.WriteLine(Client.BuildUri(request));
-
             if (response.ResponseStatus == ResponseStatus.Error)
             {
                 throw response.ErrorException;
